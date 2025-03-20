@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="urn:magento:framework/Setup/Declaration/Schema/etc/db_schema.xsd">
+    
+    <table name="custom_order_status_log" resource="default" engine="innodb" comment="Custom Order Status Log">
+        <column name="id" xsi:type="int" nullable="false" identity="true" unsigned="true" comment="ID"/>
+        <column name="order_id" xsi:type="int" nullable="false" unsigned="true" comment="Order ID"/>
+        <column name="old_status" xsi:type="text" nullable="false" comment="Old Status"/>
+        <column name="new_status" xsi:type="text" nullable="false" comment="New Status"/>
+        <column name="timestamp" xsi:type="timestamp" nullable="false" default="CURRENT_TIMESTAMP" comment="Timestamp"/>
+
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="CUSTOM_ORDER_STATUS_LOG_ORDER_ID_SALES_ORDER_ENTITY_ID"
+            table="custom_order_status_log" column="order_id"
+            referenceTable="sales_order" referenceColumn="entity_id"
+            onDelete="CASCADE"/>
+    </table>
+</schema>
